@@ -1,0 +1,32 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.6.0'
+    id 'application'
+}
+
+group = 'score-keeper'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testImplementation 'org.assertj:assertj-core:3.20.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = '13'
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = '13'
+}
+
+application {
+    mainClassName = 'MainKt'
+}
