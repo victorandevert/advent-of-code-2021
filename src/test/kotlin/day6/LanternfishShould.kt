@@ -3,6 +3,7 @@ package day6
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.io.File
 
 class LanternfishShould {
 
@@ -33,10 +34,15 @@ class LanternfishShould {
 
     @Test
     fun `return 26 fish after 18 day`() {
-        val fish = mutableListOf(3,4,3,1,2)
+        val fish = getLanternfisFromFile("lanternfish.txt").toMutableList()
 
         val amountOffish = lanternfish.spawn(fish, 18)
 
         assertThat(amountOffish).isEqualTo(26)
+    }
+    
+    private fun getLanternfisFromFile(fileName: String): List<Int> {
+        val uri = this.javaClass.classLoader.getResource(fileName)
+        return File(uri.file).readText().split(",").map { it.toInt() }.toList()
     }
 }
