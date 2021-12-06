@@ -3,20 +3,18 @@ package day6
 class Lanternfish {
 
     fun spawn(fish: MutableList<Int>, days: Int): Int {
-        var newFish = 0
         repeat(days){
-            fish.indices.forEach { index ->
-                if (fish[index] != 0){
-                    fish[index]--
-                }else{
-                    fish[index]=6
-                    newFish++
+            val newFish = mutableListOf<Int>()
+            fish.indices.forEach {
+                when {
+                    fish[it] != 0 -> fish[it]--
+                    else -> {
+                        fish[it]=6
+                        newFish.add(8)
+                    }
                 }
             }
-            for (i in 0 until newFish){
-                fish.add(8)
-            }
-            newFish=0
+            fish.addAll(newFish)
         }
         return fish.size
     }
