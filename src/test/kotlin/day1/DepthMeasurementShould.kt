@@ -32,6 +32,15 @@ class DepthMeasurementShould {
         assertThat(result).isEqualTo(7)
     }
 
+    @Test
+    fun `return that five measurements are larger than the previous measurement from three-measurement sliding window input`() {
+        val measures = getMeasuresFromFile("measures.txt")
+
+        val result = depthMeasurement.countIngreasesFromThreeSlidingWindow(measures)
+
+        assertThat(result).isEqualTo(5)
+    }
+
     private fun getMeasuresFromFile(fileName: String): List<Int> {
         val uri = this.javaClass.classLoader.getResource(fileName)
         return File(uri.file).useLines { it.toList() }.map { it.toInt() }
