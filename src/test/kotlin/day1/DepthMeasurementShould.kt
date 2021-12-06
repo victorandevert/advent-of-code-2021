@@ -15,7 +15,7 @@ class DepthMeasurementShould {
     }
 
     @Test
-    fun `seven measurements are larger than the previous measurement`(){
+    fun `return that seven measurements are larger than the previous measurement`(){
         val measures = listOf(199,200,208,210,200,207,240,269,260,263)
 
         val result = depthMeasurement.countIncreases(measures)
@@ -24,7 +24,7 @@ class DepthMeasurementShould {
     }
 
     @Test
-    fun `seven measurements from file are larger than the previous measurement`(){
+    fun `return that seven measurements from file are larger than the previous measurement`(){
         val measures = getMeasuresFromFile("measures.txt")
 
         val result = depthMeasurement.countIncreases(measures)
