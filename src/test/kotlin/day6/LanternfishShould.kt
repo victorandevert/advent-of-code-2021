@@ -15,7 +15,7 @@ class LanternfishShould {
 
     @Test
     fun `return 1 fish after 2 days`() {
-        val fish = mutableListOf(1)
+        val fish = mutableListOf(5)
 
         val amountOffish = lanternfish.spawn(fish, 2)
 
@@ -30,5 +30,4 @@ class LanternfishShould {
 
         assertThat(amountOffish).isEqualTo(2)
     }
-
 }
