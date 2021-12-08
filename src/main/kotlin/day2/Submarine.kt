@@ -3,11 +3,9 @@ package day2
 import kotlin.math.absoluteValue
 
 class Submarine {
-    var forward = 0
-    var depth = 0
-    var position = 0
-    var aim = 0
-
+    private var forward = 0
+    private var depth = 0
+    private var aim = 0
 
     fun dive(command: List<String>): Int{
         command.forEach {
@@ -15,27 +13,48 @@ class Submarine {
                 it.substringBefore(" ").trim(),
                 it.substringAfter(" ").trim().toInt()
             )
-
-            if (direction == "forward") {
-                forward += value
-                if (aim >0){
-                    depth+=(value*aim)
-                }
-            } else if (direction == "up"){
-                aim-=value
-            }else if (direction=="down"){
-                aim+=value
-            }
-
+            move(direction,value)
         }
-        if (forward!=0 && depth != 0) {
-            position = depth*forward
-        }else if (forward == 0) {
-            position = aim
-        }else{
-            position = forward
-        }
-
-        return position.absoluteValue
+        return multiplyForwardAndDepth()
     }
+
+    private fun move(direction: String, value: Int){
+        val orientation = Orientation.valueOf(direction.uppercase())
+        when {
+            orientation.isForward() -> {
+                increaseForwardBy(value)
+                increaseDepth(value)
+            }
+            orientation.isUp() -> decreaseAimBy(value)
+            orientation.isDown() -> increaseAimBy(value)
+        }
+    }
+
+    private fun multiplyForwardAndDepth(): Int = (depth*forward).absoluteValue
+
+    private fun increaseForwardBy(value: Int){
+        forward += value
+    }
+
+    private fun increaseAimBy(value: Int){
+        aim+=value
+    }
+
+    private fun decreaseAimBy(value: Int){
+        aim-=value
+    }
+
+    private fun increaseDepth(value: Int){
+        if (aim > 0) depth+=(value*aim)
+    }
+}
+
+enum class Orientation{
+    FORWARD,
+    UP,
+    DOWN;
+
+    fun isForward(): Boolean = this == FORWARD
+    fun isUp(): Boolean = this == UP
+    fun isDown(): Boolean = this == DOWN
 }
