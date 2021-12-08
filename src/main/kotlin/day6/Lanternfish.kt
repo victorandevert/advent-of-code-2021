@@ -2,20 +2,20 @@ package day6
 
 class Lanternfish {
 
-    fun spawn(fish: MutableList<Int>, days: Int): Int {
+    fun spawn(fish: List<Int>, days: Int): Long {
+        val newFishes = arrayListOf(0L,0L,0L,0L,0L,0L,0L,0L,0L).apply { fish.map { this[it]++ }  }
         repeat(days){
-            val newFish = mutableListOf<Int>()
-            fish.indices.forEach {
-                when {
-                    fish[it] != 0 -> fish[it]--
-                    else -> {
-                        fish[it]=6
-                        newFish.add(8)
-                    }
+            val nextGenerationFish = arrayListOf(0L,0L,0L,0L,0L,0L,0L,0L,0L)
+            for (age in 0..8) when (age) {
+                8 -> {
+                    nextGenerationFish[8]=newFishes.first()
+                    nextGenerationFish[6]+=nextGenerationFish[8]
                 }
+                else -> nextGenerationFish[age]=newFishes[age+1]
             }
-            fish.addAll(newFish)
+            newFishes.clear()
+            newFishes.addAll(nextGenerationFish)
         }
-        return fish.size
+        return newFishes.sum()
     }
 }

@@ -40,6 +40,15 @@ class LanternfishShould {
 
         assertThat(amountOffish).isEqualTo(26)
     }
+
+    @Test
+    fun `return 26984457539 fish after 256 day`() {
+        val fish = getLanternfisFromFile("lanternfish.txt").toMutableList()
+
+        val amountOffish = lanternfish.spawn(fish, 256)
+
+        assertThat(amountOffish).isEqualTo(26984457539)
+    }
     
     private fun getLanternfisFromFile(fileName: String): List<Int> {
         val uri = this.javaClass.classLoader.getResource(fileName)
